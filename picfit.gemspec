@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Edgar Gonzalez"]
   spec.email         = ["edgargonzalez@gmail.com"]
 
-  spec.summary       = %q{TODO: A Ruby library for generating URLs with picfit.}
-  spec.description   = %q{TODO: A Ruby library for generating URLs with picfit.}
+  spec.summary       = %q{A Ruby library for generating URLs with picfit.}
+  spec.description   = %q{A Ruby library for generating URLs with picfit.}
   spec.homepage      = "http://github.com/edgar/picfit-ruby"
   spec.license       = "MIT"
 
