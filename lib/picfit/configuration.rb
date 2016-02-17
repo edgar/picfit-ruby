@@ -8,7 +8,7 @@ module Picfit
     ].freeze
 
     DEFAULT_METHOD     = :display
-    DEFAULT_BASE_URL   = nil
+    DEFAULT_BASE_URL   = ""
     DEFAULT_SECRET_KEY = nil
 
     attr_accessor *VALID_OPTIONS_KEYS

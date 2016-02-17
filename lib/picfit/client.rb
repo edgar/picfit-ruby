@@ -36,7 +36,8 @@ module Picfit
     # Return a full image url
     #
     def image_url(options = {})
-      base_url = options[:base_url] || self.base_url
+      base_url = options[:base_url] || self.base_url || Configuration.DEFAULT_BASE_URL
+      base_url << "/" if base_url[-1,1] != "/"
       base_url << image_path(options)
     end
 
