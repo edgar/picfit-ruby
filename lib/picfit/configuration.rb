@@ -5,11 +5,13 @@ module Picfit
       :base_url,
       :method,
       :secret_key,
+      :query_string
     ].freeze
 
-    DEFAULT_METHOD     = :display
-    DEFAULT_BASE_URL   = ""
-    DEFAULT_SECRET_KEY = nil
+    DEFAULT_METHOD        = :display
+    DEFAULT_BASE_URL      = ""
+    DEFAULT_SECRET_KEY    = nil
+    DEFAULT_QUERY_STRING  = false
 
     attr_accessor *VALID_OPTIONS_KEYS
 
@@ -35,6 +37,7 @@ module Picfit
       self.base_url       = DEFAULT_BASE_URL
       self.method         = DEFAULT_METHOD
       self.secret_key     = DEFAULT_SECRET_KEY
+      self.query_string   = DEFAULT_QUERY_STRING
     end
   end
 end

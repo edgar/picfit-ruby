@@ -53,15 +53,25 @@ module Picfit
         result[param_key] = options[key] if options[key]
         result
       end
-      # Create a query string from the params
-      query_string = params.map{|k,v| [CGI.escape(k.to_s), "=", CGI.escape(v.to_s)]}.map(&:join).join("&")
-      if secret_key
-        # lets use << instead of + or interpolation
-        query_string << "&sig="
-        query_string << sign_string(secret_key, query_string)
+
+      if options[:query_string]
+        # Create a query params array from the params
+        query_string = params.map{|k,v| [CGI.escape(k.to_s), "=", CGI.escape(v.to_s)]}.map(&:join).join("&")
+        if secret_key
+          # lets use << instead of + or interpolation
+          query_string << "&sig="
+          query_string << sign_string(secret_key, query_string)
+        end
+      else
+        path << ["", params[:op], [params[:w].to_s, params[:h].to_s].join('x'), params[:path]].join("/")
       end
-      path << "?"
-      path << query_string
+
+      if query_string
+        path << "?"
+        path << query_string
+      end
+
+      path
     end
 
     def sign_string(secret_key, query_string)
