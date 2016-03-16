@@ -29,19 +29,7 @@ describe Picfit::Client do
 
         # I don't like this too much, b/c the result depends on PICFIT_PARAMS_MAP order,
         # but the intention is more clear
-        expect(uri_string).to eq("display?path=path%2Fto%2Ffile&op=resize&w=100&h=100&sig=f45506bf02ca3ba84eb34a2a066af7aa315a11c2")
-
-        # Lets check using URI
-        uri = URI.parse(uri_string)
-        # check the path
-        expect(uri.path).to eq(client.method.to_s)
-        # check the query string
-        params = CGI.parse(uri.query) # each key value is an array
-        expect(params['w']).to eq ["100"]
-        expect(params['w']).to eq ["100"]
-        expect(params['path']).to eq ["path/to/file"]
-        expect(params['op']).to eq ["resize"]
-        expect(params['sig']).to eq ["f45506bf02ca3ba84eb34a2a066af7aa315a11c2"]
+        expect(uri_string).to eq("display/resize/100x100/path/to/file")
       end
     end
 
@@ -53,6 +41,26 @@ describe Picfit::Client do
           height: 100,
           path: "path/to/file",
           operation: :resize
+        }
+      }
+      it "should return the proper image path" do
+        uri_string = client.image_path(options)
+
+        # I don't like this too much, b/c the result depends on PICFIT_PARAMS_MAP order,
+        # but the intention is more clear
+        expect(uri_string).to eq("get/resize/100x100/path/to/file")
+      end
+    end
+
+    context "when requesting query based path" do
+      let(:options) {
+        {
+          method: :get,
+          width: 100,
+          height: 100,
+          path: "path/to/file",
+          operation: :resize,
+          query_string: true
         }
       }
       it "should return the proper image path" do
@@ -93,7 +101,7 @@ describe Picfit::Client do
 
       # I don't like this too much, b/c the result depends on PICFIT_PARAMS_MAP order,
       # but the intention is more clear
-      expect(uri_string).to eq("http://foo.com/display?path=path%2Fto%2Ffile&op=resize&w=100&h=100")
+      expect(uri_string).to eq("http://foo.com/display/resize/100x100/path/to/file")
     end
 
     context "when supplying custom base_url" do
@@ -112,7 +120,7 @@ describe Picfit::Client do
 
         # I don't like this too much, b/c the result depends on PICFIT_PARAMS_MAP order,
         # but the intention is more clear
-        expect(uri_string).to eq("http://bar.com/display?path=path%2Fto%2Ffile&op=resize&w=100&h=100")
+        expect(uri_string).to eq("http://bar.com/display/resize/100x100/path/to/file")
       end
     end
   end

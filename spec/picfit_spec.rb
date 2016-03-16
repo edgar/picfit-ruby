@@ -15,7 +15,8 @@ describe Picfit do
         width: 100,
         height: 100,
         path: "path/to/file",
-        operation: :resize
+        operation: :resize,
+        query_string: true
       }
     }
 
